@@ -20,6 +20,7 @@ A website that allows users to log and rate albums and subsequently track what a
 - Connect with friends and see what they have rated via an “activity” feed  
 - A professional UI  
 - Hub that lists the albums and a search that allows people to narrow down the listings
+- Account system
 
 ### Nice-to-have
 
