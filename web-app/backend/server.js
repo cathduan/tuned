@@ -1,5 +1,5 @@
-// import {createServer} from 'http';
-// import Client from 'pg';
+//import {createServer} from 'http';
+//import Client from 'pg';
 import pkg from 'pg';
 const { Pool } = pkg;
 import express from 'express';
@@ -87,11 +87,6 @@ app.get('/profiles', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
-
-
 async function searchAlbums(query) {
   try {
     const { MusicBrainzApi } = await import('musicbrainz-api');
@@ -112,7 +107,6 @@ async function searchAlbums(query) {
   }
 }
 
-
 // New route to search albums
 app.get("/search-albums", async (req, res) => {
   const query = req.query.q; // example: /search-albums?q=Abbey+Road
@@ -125,6 +119,9 @@ app.get("/search-albums", async (req, res) => {
   res.status(200).json(albums);
 });
 
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
+});
 // Existing route
 // app.get("/", async (req, res) => {
 //   res.statusCode = 200;
