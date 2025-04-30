@@ -1,4 +1,7 @@
-const { MusicBrainzApi } = import('musicbrainz-api');
+//const { MusicBrainzApi } = require('musicbrainz-api');
+//import { MusicBrainzApi } from 'musicbrainz-api';
+const { MusicBrainzApi } = require('musicbrainz-api');
+
 
 const config = {
     // Optional: MusicBrainz bot account credentials
