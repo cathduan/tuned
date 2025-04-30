@@ -17,6 +17,7 @@
     "framer-motion": "^12.9.1",
     "jwt-decode": "^4.0.0",
     "pg": "^8.14.1",
+    "musicbrainz-api": "^0.23.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.5.2",
@@ -48,3 +49,4 @@
     ]
   }
 }
+
