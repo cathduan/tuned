@@ -15,7 +15,8 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "pg": "^8.14.1"
+    "pg": "^8.14.1",
+    "musicbrainz-api": "^0.23.1"
   },
   "devDependencies": {
     "dotenv": "^16.5.0",
