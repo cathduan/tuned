@@ -1,0 +1,3 @@
+1. In your code editor, clone the repository. Make sure to have npm, node, and postgres installed. We have two node-modules folders, so make sure to run `npm install` in the web-app and the backend directories.  
+2. In the backend: create a psql database named “tuned”. Then, run the following line to create a table necessary for our account system: 
+    `psql -U <your username> -d tuned < account.sql`

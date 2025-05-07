@@ -1,0 +1,5 @@
+We plan on using feature branching, meaning we will use a new branch for large new features. 
+
+When to branch:  When starting work on a “significant” new feature. Also, we will alert our partner when we plan on doing this. 
+
+How to merge: When we are happy with a feature, we will merge it with main. To do this, a developer will submit a pull request, which can be reviewed and accepted by other group members. 

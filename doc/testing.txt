@@ -1,0 +1,10 @@
+Automated Unit Testing: 
+- Test our musicAPI by making it call 10 artist names and info
+- Test if an account is correctly added to our database
+- Test if a search is correctly handled
+- Test if an album is correctly added to an account profile feed 
+
+Manual Tests:
+- Hallway usability testing: Test our web-app with non-developers to check its usability and gain feedback.  
+- Browser Compatibility: Test our web-app on different popular web-browsers (Chrome, Firefox, Edge)
+Screen Size Compatibility: Test our web-app on devices of various screen-sizes (Phone, Laptop, Monitor, etc…)
