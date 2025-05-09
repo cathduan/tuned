@@ -1,0 +1,17 @@
+Registration page: 
+    The user types in a valid unique username and password into the text fields and clicks the registration button to create a profile.
+
+Login page: 
+    The user types in their username and password into the text fields and clicks the login button to log into their profile. Once logged in, a logout button will appear, which users can click on to log them out. 
+
+Home page: 
+    The user is able to view and interact with friend logs (that will display the album photo on the side next to the friend’s username, the time of the rating, and the rating itself). Interaction means being able to click and view a friend’s review and like it; in addition, users will be able to see other friend’s profile on the web-app. The home page will also showcase albums from artists that they have previously listened to, so a user will be able to click on the album and get its respective metadata. 
+
+Logging an album: 
+    This is the main feature of our web-app. When a user clicks on an album (either by clicking on an album that a friend rated, the showcase of albums on the homepage, or through the search feature), the web-app will populate with the album’s metadata on the left side, which is not interactable. However, there will be different rating-related fields that appear for the user to interact with, like star ratings, written reviews/logs, and a customizable date to accurately reflect when the user listened to the album. If they do not want to review the album because they have not listened to the album, there will be a button to add the album to a want-to-listen collection. 
+
+Profile: 
+    The profile does not serve so much as account settings but rather is a central space that displays the user’s reviews, favorite albums, see a collection of albums that they want to listen to, and friends. Therefore, the user can click on their old reviews and edit as they please, edit which albums they want displayed as their favorites, and click on their friend’s usernames to access their profiles. 
+
+Search page: 
+    The search page has a search bar that populates the page with albums with album titles that correspond with the user’s search. From there, the user can click on the album and review it accordingly or mark it as an album that they want to listen to. 
