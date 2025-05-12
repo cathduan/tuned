@@ -1,12 +1,12 @@
 //import {createServer} from 'http';
 //import Client from 'pg';
-import pkg from 'pg';
+const pkg = require('pg');
 const { Pool } = pkg;
-import express from 'express';
-import cors from 'cors';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
+const express = require('express');
+const cors = require('cors');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
 dotenv.config();
 
 const hostname = '127.0.0.1';
