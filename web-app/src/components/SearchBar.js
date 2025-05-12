@@ -39,7 +39,7 @@ export const SearchBar = ({ setResults }) => {
   return (
     <div className="input-wrapper">
       <input
-        placeholder="Type to search for albums..."
+        placeholder="Type to search for an album title..."
         value={input}
         onChange={(e) => handleChange(e.target.value)}
       />
