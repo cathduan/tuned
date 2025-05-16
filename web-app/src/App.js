@@ -6,6 +6,8 @@ import Login from './components/Login';
 import Home from './components/Home';
 import ArtistInfo from './components/ArtistInfo';
 import Profile  from './components/Profile';
+import { AlbumDetails } from "./components/AlbumDetails";
+
 //import ArtistInfo from './components/ArtistInfo'; <ArtistInfo>
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/search-albums" element={<ArtistInfo />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/album/:id" element={<AlbumDetails />} />
       </Routes>
     </Router>
   );

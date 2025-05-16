@@ -17,6 +17,7 @@ function Login() {
       const data = await res.json();
       if (res.ok) {
         localStorage.setItem('token', data.token); // Save JWT token
+        localStorage.setItem('userId', data.userId)
         setMessage('Login successful!');
       } else {
         setMessage(data.message);
@@ -27,7 +28,7 @@ function Login() {
   };
 
   return (
-    <div>
+    <div className='LoginContainer'>
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
         <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
