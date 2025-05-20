@@ -21,8 +21,24 @@ export const SearchBar = ({ setResults }) => {
         artist: release["artist-credit"]
           ?.map((artist) => artist.name)
           .join(", "),
-        firstReleaseDate: release["first-release-date"],
+        firstReleaseDate: release["first-release-date"]
       }));
+
+//        const response = await fetch(
+//         `https://musicbrainz.org/ws/2/release/?query=${encodeURIComponent(
+//           value
+//         )}&type=album&fmt=json`
+//       );
+//       const data = await response.json();
+
+//       const results = data["release"]?.map((release) => ({
+//         id: release.id,
+//         title: release.title,
+//         artist: release["artist-credit"]
+//           ?.map((artist) => artist.name)
+//           .join(", "),
+//         firstReleaseDate: release["first-release-date"]
+//       }));
 
       setResults(results || []);
     } catch (error) {
@@ -31,7 +47,7 @@ export const SearchBar = ({ setResults }) => {
     }
   };
 
-  const handleChange = (value) => {
+  const handleSearch = (value) => {
     setInput(value);
     fetchData(value);
   };
@@ -39,9 +55,9 @@ export const SearchBar = ({ setResults }) => {
   return (
     <div className="input-wrapper">
       <input
-        placeholder="Type to search for albums..."
+        placeholder="Type to search for an album title..."
         value={input}
-        onChange={(e) => handleChange(e.target.value)}
+        onChange={(e) => handleSearch(e.target.value)}
       />
     </div>
   );

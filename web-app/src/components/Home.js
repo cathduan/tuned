@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {jwtDecode} from 'jwt-decode';
-
 import { SearchBar } from "./SearchBar";
 import { ResultsList } from "./ResultsList";
 
