@@ -1,12 +1,14 @@
 //import {createServer} from 'http';
 //import Client from 'pg';
-const pkg = require('pg');
-const { Pool } = pkg;
-const express = require('express');
-const cors = require('cors');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const dotenv = require('dotenv');
+import express from 'express';
+import cors from 'cors';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import { Pool } from 'pg';
+import pg from 'pg';
+import { MusicBrainzApi } from 'musicbrainz-api';
+
 dotenv.config();
 
 const hostname = '127.0.0.1';
@@ -132,3 +134,5 @@ app.listen(port, () => {
 // app.listen(port, hostname, () => {
 //   console.log(`Server running at http://${hostname}:${port}/`);
 // });
+
+export default app;
