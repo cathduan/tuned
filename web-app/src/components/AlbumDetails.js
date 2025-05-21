@@ -105,15 +105,16 @@ export const AlbumDetails = () => {
             />
           </section>
 
-          <section className="DateListened">
+        <section className="DateListened">
             <h2>Date Listened</h2>
             <input
-              type="date"
-              className="date-input"
-              value={dateListened}
-              onChange={(e) => setDateListened(e.target.value)}
+                type="date"
+                className="date-input"
+                value={dateListened}
+                onChange={(e) => setDateListened(e.target.value)}
+                max={new Date().toISOString().split("T")[0]} 
             />
-          </section>
+        </section>
 
           <button type="submit">Save Review</button>
         </form>
