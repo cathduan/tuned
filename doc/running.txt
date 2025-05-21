@@ -1,5 +1,5 @@
 1. cd backend
-2. node server.js
+2. node server.mjs
 3. Open a second terminal
 4. cd web-app
 5. npm start
