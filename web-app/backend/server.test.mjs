@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import request from 'supertest';
 import app from './server.mjs';
 
+const port = 3001;
 describe('Basic Express API', () => {
   it('GET / should return server running message', async () => {
     const res = await request(app).get('/');
