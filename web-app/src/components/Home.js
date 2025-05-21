@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {jwtDecode} from 'jwt-decode';
 import { SearchBar } from "./SearchBar";
 import { ResultsList } from "./ResultsList";
@@ -22,7 +22,6 @@ function Home() {
 
     return (
       <div>
-        <h2>Tuned</h2>
         {token ? (
           <p>Welcome to Tuned, {username}! You are logged in!</p>
         ) : (

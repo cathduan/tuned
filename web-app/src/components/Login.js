@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./AuthProfileBox.css";
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -28,16 +29,28 @@ function Login() {
   };
 
   return (
-    <div className='LoginContainer'>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        <br/>
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <br/>
-        <button type="submit">Login</button>
-      </form>
-      <p>{message}</p>
+    <div className="centered-box-container">
+      <div className="centered-box">
+        <h2>Login</h2>
+        <form onSubmit={handleLogin}>
+          <input
+            type="username"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <button type="submit">Login</button>
+        </form>
+        <p>{message}</p>
+      </div>
     </div>
   );
 }

@@ -1,11 +1,10 @@
-import React from "react";
 import "./ResultsList.css";
 import { Link } from "react-router-dom";
 
 const getCoverArtUrl = (releaseId) =>
   `https://coverartarchive.org/release/${releaseId}/front-250`;
 
-const PLACEHOLDER_URL = "https://via.placeholder.com/64?text=No+Art";
+const PLACEHOLDER_URL = "https://placeholder.com";
 
 export const ResultsList = ({ results }) => {
   return (

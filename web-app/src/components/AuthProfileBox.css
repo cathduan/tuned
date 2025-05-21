@@ -1,0 +1,109 @@
+.centered-box-container,
+.LoginContainer {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+}
+
+.centered-box,
+.LoginContainer {
+  background: #e3f6f5;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(180, 180, 255, 0.10);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  min-width: 320px;
+  max-width: 420px;
+  width: 100%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.centered-box h1,
+.centered-box h2,
+.LoginContainer h2 {
+  color: #22223b;
+  margin-bottom: 1.2rem;
+}
+
+.centered-box form,
+.LoginContainer form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.centered-box input,
+.LoginContainer input,
+.centered-box textarea {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 12px;
+  border: 1px solid #b8c0ff;
+  background: #fff;
+  font-size: 1rem;
+}
+
+.centered-box button,
+.LoginContainer button {
+  background: #b8c0ff;
+  color: #22223b;
+  border: none;
+  border-radius: 12px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.centered-box button:hover,
+.centered-box button:focus,
+.LoginContainer button:hover,
+.LoginContainer button:focus {
+  background: #e3f6f5;
+}
+
+.centered-box ul.ReviewList {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.centered-box li.ReviewCard {
+  background: #f6e3f5;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(180, 180, 255, 0.08);
+  margin-bottom: 1.2rem;
+  padding: 1rem;
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+}
+
+.centered-box li.ReviewCard img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #b8c0ff;
+}
+
+.centered-box li.ReviewCard:last-child {
+  margin-bottom: 0;
+}
+
+.centered-box p,
+.LoginContainer p {
+  color: #22223b;
+  margin: 0.7rem 0 0 0;
+  word-break: break-word;
+  text-align: center;
+}

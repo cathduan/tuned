@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import "./AuthProfileBox.css";
 
 function Register() {
   const [username, setUsername] = useState('');
@@ -26,17 +27,18 @@ function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
+      <div className="centered-box-container">
+        <div className="centered-box">
+          <h2>Register</h2>
+          <form onSubmit={handleRegister}>
         <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
-        <br/>
         <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-        <br/>
         <button type="submit">Register</button>
       </form>
       <p>{message}</p>
-    </div>
+        </div>
+      </div>
+      
   );
 }
 
