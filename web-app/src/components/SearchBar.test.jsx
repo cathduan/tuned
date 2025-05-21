@@ -30,15 +30,23 @@ describe('SearchBar', () => {
     expect(searchInput.value).toBe('');
   });
 
-  it('calls fetchData when input changes', async () => {
-    // Mock successful API response
+  it('calls fetchData and setResults with filtered releases when input changes', async () => {
+    // Mock API response matching the component's expectations
     const mockResponse = {
-      'release-groups': [
+      releases: [
         {
           id: '123',
           title: 'Test Album',
+          date: '2023-01-01',
           'artist-credit': [{ name: 'Test Artist' }],
-          'first-release-date': '2023-01-01'
+          'release-group': { 'primary-type': 'Album' }
+        },
+        {
+          id: '456',
+          title: 'Not an Album',
+          date: '2022-01-01',
+          'artist-credit': [{ name: 'Other Artist' }],
+          'release-group': { 'primary-type': 'Single' }
         }
       ]
     };
@@ -47,31 +55,20 @@ describe('SearchBar', () => {
       json: async () => mockResponse
     });
 
-    // Render the component with a different container for each test
-    const { container } = render(<SearchBar setResults={mockSetResults} />);
-    
-    // Get the input element using the container to scope the query
-    const searchInput = container.querySelector('input');
-    expect(searchInput).toBeInTheDocument();
-    
-    // Simulate user typing in the search box
+    render(<SearchBar setResults={mockSetResults} />);
+    const searchInput = screen.getByPlaceholderText('Type to search for an album title...');
     fireEvent.change(searchInput, { target: { value: 'test query' } });
-    
-    // Check if the input value is updated
     expect(searchInput.value).toBe('test query');
-    
-    // Check if fetch was called with the right URL
     expect(fetch).toHaveBeenCalledWith(expect.stringContaining('test%20query'));
-    
-    // Wait for the async operation to complete
+
     await vi.waitFor(() => {
-      // Check if setResults was called with the processed data
       expect(mockSetResults).toHaveBeenCalledWith([
         {
           id: '123',
           title: 'Test Album',
           artist: 'Test Artist',
-          firstReleaseDate: '2023-01-01'
+          firstReleaseDate: '2023-01-01',
+          type: 'Album'
         }
       ]);
     });
