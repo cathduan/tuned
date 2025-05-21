@@ -1,5 +1,6 @@
 import React from "react";
 import "./ResultsList.css";
+import { Link } from "react-router-dom";
 
 const getCoverArtUrl = (releaseId) =>
   `https://coverartarchive.org/release/${releaseId}/front-250`;
@@ -22,9 +23,9 @@ export const ResultsList = ({ results }) => {
               }
             }}
           />
-          <span>
+           <Link to={`/album/${result.id}`}>
             {result.title} by {result.artist} (released: {result.firstReleaseDate})
-          </span>
+            </Link>
         </li>
       ))}
     </ul>
