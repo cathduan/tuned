@@ -9,36 +9,28 @@ export const SearchBar = ({ setResults }) => {
 
     try {
       const response = await fetch(
-        `https://musicbrainz.org/ws/2/release-group/?query=${encodeURIComponent(
+        `https://musicbrainz.org/ws/2/release/?query=${encodeURIComponent(
           value
-        )}&type=album&fmt=json`
+        )}&fmt=json&limit=20`
       );
       const data = await response.json();
 
-      const results = data["release-groups"]?.map((release) => ({
-        id: release.id,
-        title: release.title,
-        artist: release["artist-credit"]
-          ?.map((artist) => artist.name)
-          .join(", "),
-        firstReleaseDate: release["first-release-date"]
-      }));
-
-//        const response = await fetch(
-//         `https://musicbrainz.org/ws/2/release/?query=${encodeURIComponent(
-//           value
-//         )}&type=album&fmt=json`
-//       );
-//       const data = await response.json();
-
-//       const results = data["release"]?.map((release) => ({
-//         id: release.id,
-//         title: release.title,
-//         artist: release["artist-credit"]
-//           ?.map((artist) => artist.name)
-//           .join(", "),
-//         firstReleaseDate: release["first-release-date"]
-//       }));
+      // Filter releases to only include those of type 'Album' or 'EP'
+      const results = data.releases
+        ?.filter(
+          (release) =>
+            release["release-group"] &&
+            ["Album", "EP"].includes(release["release-group"]["primary-type"])
+        )
+        .map((release) => ({
+          id: release.id,
+          title: release.title,
+          artist: release["artist-credit"]
+            ?.map((artist) => artist.name)
+            .join(", ") || "Unknown Artist",
+          firstReleaseDate: release.date || "Unknown Date",
+          type: release["release-group"]?.["primary-type"] || "Unknown",
+        }));
 
       setResults(results || []);
     } catch (error) {
@@ -53,12 +45,14 @@ export const SearchBar = ({ setResults }) => {
   };
 
   return (
-    <div className="input-wrapper">
-      <input
-        placeholder="Type to search for an album title..."
-        value={input}
-        onChange={(e) => handleSearch(e.target.value)}
-      />
+    <div className="searchbar-center">
+      <div className="input-wrapper">
+        <input
+          placeholder="Type to search for an album title..."
+          value={input}
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+      </div>
     </div>
   );
 };

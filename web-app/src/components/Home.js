@@ -22,7 +22,7 @@ function Home() {
 
     return (
       <div>
-        <h2>Home</h2>
+        <h2>Tuned</h2>
         {token ? (
           <p>Welcome to Tuned, {username}! You are logged in!</p>
         ) : (
