@@ -25,7 +25,7 @@ describe('SearchBar', () => {
     render(<SearchBar setResults={mockSetResults} />);
     
     // Check if the input is rendered with the correct placeholder
-    const searchInput = screen.getByPlaceholderText('Type to search for albums...');
+    const searchInput = screen.getByPlaceholderText('Type to search for an album title...');
     expect(searchInput).toBeInTheDocument();
     expect(searchInput.value).toBe('');
   });
