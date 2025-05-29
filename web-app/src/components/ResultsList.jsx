@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const getCoverArtUrl = (releaseId) =>
   `https://coverartarchive.org/release/${releaseId}/front-250`;
 
-const PLACEHOLDER_URL = "https://placeholder.com";
+const PLACEHOLDER_URL = "https://via.placeholder.com/64?text=No+Art";
 
 export const ResultsList = ({ results }) => {
   return (
@@ -13,18 +13,23 @@ export const ResultsList = ({ results }) => {
         <li key={result.id}>
           <img
             src={getCoverArtUrl(result.id)}
-            alt={`No Cover art `}
+            alt={`Cover art for ${result.title}`}
             style={{ width: 64, height: 64, objectFit: "cover", marginRight: 8 }}
             onError={(e) => {
-              if (e.target.src !== PLACEHOLDER_URL) {
+              if (!e.target.dataset.fallback) {
                 e.target.onerror = null;
                 e.target.src = PLACEHOLDER_URL;
+                e.target.dataset.fallback = "true";
               }
             }}
           />
-           <Link to={`/album/${result.id}`}>
-            {result.title} by {result.artist} (released: {result.firstReleaseDate})
+          <div className="result-info">
+            <Link to={`/album/${result.id}`} className="result-title">
+              {result.title}
             </Link>
+            <div className="result-artist">{result.artist}</div>
+            <div className="result-date">Released: {result.firstReleaseDate}</div>
+          </div>
         </li>
       ))}
     </ul>

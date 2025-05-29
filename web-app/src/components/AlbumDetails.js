@@ -5,15 +5,16 @@ import StarRating from "./Star";
 import "./AlbumDetails.css";
 
 export const AlbumDetails = () => {
-  const { id } = useParams(); //release.id
+  const { id } = useParams(); //release.id (MBID)
   const [album, setAlbum] = useState(null);
   const [rating, setRating] = useState(0);
   const [notes, setNotes] = useState("");
   const [dateListened, setDateListened] = useState("");
 
   const token = localStorage.getItem("token");
-  const decoded = jwtDecode(token);
-  const userId = decoded.id;
+
+  const decodedToken = jwtDecode(token); // Change this name!
+  const userId = decodedToken.id;
 
   const getCoverArtUrl = (releaseId) =>
     `https://coverartarchive.org/release/${releaseId}/front-250`;

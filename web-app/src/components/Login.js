@@ -17,7 +17,7 @@ function Login() {
 
       const data = await res.json();
       if (res.ok) {
-        localStorage.setItem('token', data.token); // Save JWT token
+        localStorage.setItem('token', data.token); // save JWT token
         localStorage.setItem('userId', data.userId)
         setMessage('Login successful!');
       } else {

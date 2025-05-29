@@ -1,17 +1,13 @@
-//import {createServer} from 'http';
-//import Client from 'pg';
+
 import express from 'express';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
-import pg from 'pg';
-import { MusicBrainzApi } from 'musicbrainz-api';
 
 dotenv.config();
 
-const hostname = '127.0.0.1';
 const port = 3001;
 const app = express();
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
@@ -118,26 +114,6 @@ app.get('/reviews', async (req, res) => {
   }
 });
 
-app.get("/profiles/:id/reviews", async (req, res) => {
-  const userId = req.params.id;
-
-  try {
-    const result = await pool.query(
-      `SELECT reviews.*, profiles.username
-       FROM reviews
-       JOIN profiles ON reviews.user_id = profiles.id
-       WHERE user_id = $1
-       ORDER BY date_listened DESC`,
-      [userId]
-    );
-
-    res.json(result.rows);
-  } catch (err) {
-    console.error("Error fetching user reviews:", err);
-    res.status(500).json({ error: "Internal server error" });
-  }
-});
-
 async function searchAlbums(query) {
   try {
     const { MusicBrainzApi } = await import('musicbrainz-api');
@@ -172,15 +148,6 @@ app.get("/search-albums", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
-// Existing route
-// app.get("/", async (req, res) => {
-//   res.statusCode = 200;
-//   res.setHeader('Content-Type', 'application/json');
-//   res.end(JSON.stringify({ message: "Welcome to Tuned API!" }));
-// });
 
-// app.listen(port, hostname, () => {
-//   console.log(`Server running at http://${hostname}:${port}/`);
-// });
 
 export default app;
