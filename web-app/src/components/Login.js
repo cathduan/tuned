@@ -31,7 +31,7 @@ function Login() {
   return (
     <div className="centered-box-container">
       <div className="centered-box">
-        <h2>Login</h2>
+        <h2>It's you again! :) </h2>
         <form onSubmit={handleLogin}>
           <input
             type="username"

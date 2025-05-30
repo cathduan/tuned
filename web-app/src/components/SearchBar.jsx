@@ -86,7 +86,7 @@ export const SearchBar = ({ setResults }) => {
           onChange={(e) => setSearchType(e.target.value)}
           style={{
             marginRight: 10,
-            borderRadius: 12,
+            borderRadius: 8,
             border: "1px solid #b8c0ff",
             background: "#f6e3f5",
             fontSize: "1rem",

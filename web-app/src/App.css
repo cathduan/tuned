@@ -19,7 +19,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #54afc8;
 }
 
 /* Navigation bar styles */
@@ -39,7 +39,7 @@
 }
 
 .tuned-title {
-  font-size: 1.7rem;
+  font-size: 2.0rem;
   font-weight: 700;
   color: #22223b;
   background: none;
@@ -52,8 +52,9 @@
 }
 
 .tuned-title:hover, .tuned-title:focus {
-  color: #b8c0ff;
-  background: none;
+  color: #d9460b;
+  background: solid;
+  background-color: rgb(255, 222, 222);
 }
 
 .nav-links {
@@ -64,7 +65,7 @@
 .nav-links a {
   text-decoration: none;
   color: #3a3a3a;
-  background: #f6e3f5;
+  background: #bea3bd;
   padding: 0.5rem 1.2rem;
   border-radius: 20px;
   font-weight: 500;
@@ -78,11 +79,11 @@
 
 .nav-links a.profile-link {
   padding: 0.5rem 0.8rem;
-  background: #e3f6f5;
+  background: #bfceb9;
 }
 
 .nav-links a:hover, .nav-links a:focus {
-  background: #b8c0ff;
+  background: #d4d8ff;
   color: #22223b;
   outline: none;
 }

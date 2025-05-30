@@ -2,7 +2,7 @@ import { useState } from 'react';
 import {jwtDecode} from 'jwt-decode';
 import { SearchBar } from "./SearchBar";
 import { ResultsList } from "./ResultsList";
-
+import "./Home.css";
 
 function Home() {
     const token = localStorage.getItem('token');
@@ -23,9 +23,13 @@ function Home() {
     return (
       <div>
         {token ? (
+          <div className='welcome'>
           <p>Welcome to Tuned, {username}! You are logged in!</p>
+          </div>
         ) : (
+          <div className='welcome'>
           <p>You are not logged in.</p>
+          </div>
         )}
         <div className="search-bar-container">
             <SearchBar setResults={setResults} />

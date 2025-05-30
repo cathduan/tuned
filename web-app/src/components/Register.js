@@ -29,7 +29,8 @@ function Register() {
   return (
       <div className="centered-box-container">
         <div className="centered-box">
-          <h2>Register</h2>
+          <h2>Don't have an account? :O</h2>
+          <h3>Make one!</h3>
           <form onSubmit={handleRegister}>
           <input type="username" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} required />
           <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required />

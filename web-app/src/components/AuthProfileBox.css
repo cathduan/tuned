@@ -9,7 +9,9 @@
 
 .centered-box,
 .LoginContainer {
-  background: #e3f6f5;
+  background: #fff0c1;
+  border: solid;
+  border-color: rgba(54, 54, 254, 0.08);
   border-radius: 20px;
   box-shadow: 0 4px 24px rgba(180, 180, 255, 0.10);
   padding: 2.5rem 2.5rem 2rem 2.5rem;
@@ -52,7 +54,7 @@
 
 .centered-box button,
 .LoginContainer button {
-  background: #b8c0ff;
+  background:#b0d0ef;;
   color: #22223b;
   border: none;
   border-radius: 12px;
@@ -108,3 +110,4 @@
   word-break: break-word;
   text-align: center;
 }
+

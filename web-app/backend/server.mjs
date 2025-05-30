@@ -114,6 +114,26 @@ app.get('/reviews', async (req, res) => {
   }
 });
 
+app.get("/profiles/:id/reviews", async (req, res) => {
+  const userId = req.params.id;
+
+  try {
+    const result = await pool.query(
+      `SELECT reviews.*, profiles.username
+       FROM reviews
+       JOIN profiles ON reviews.user_id = profiles.id
+       WHERE user_id = $1
+       ORDER BY date_listened DESC`,
+      [userId]
+    );
+
+    res.json(result.rows);
+  } catch (err) {
+    console.error("Error fetching user reviews:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 async function searchAlbums(query) {
   try {
     const { MusicBrainzApi } = await import('musicbrainz-api');
