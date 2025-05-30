@@ -4,6 +4,7 @@ import "./SearchBar.css";
 export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchType, setSearchType] = useState("album"); // "album" or "artist"
   const abortControllerRef = useRef(null);
 
   // Debounce input changes
@@ -12,7 +13,7 @@ export const SearchBar = ({ setResults }) => {
       if (input.trim() !== searchTerm) {
         setSearchTerm(input.trim());
       }
-    }, 400); // 400ms debounce
+    }, 400);
 
     return () => clearTimeout(handler);
   }, [input, searchTerm]);
@@ -23,7 +24,6 @@ export const SearchBar = ({ setResults }) => {
       return;
     }
 
-    // Cancel previous fetch if still running
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
     }
@@ -32,12 +32,19 @@ export const SearchBar = ({ setResults }) => {
 
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          `https://musicbrainz.org/ws/2/release/?query=${encodeURIComponent(
+        let url;
+        if (searchType === "album") {
+          url = `https://musicbrainz.org/ws/2/release/?query=${encodeURIComponent(
             searchTerm
-          )}&fmt=json&limit=20`,
-          { signal: controller.signal }
-        );
+          )}&fmt=json&limit=100`;
+        } else {
+          // Quote the artist name for multi-word searches
+          url = `https://musicbrainz.org/ws/2/release/?query=artist:"${encodeURIComponent(
+            searchTerm
+          )}"&fmt=json&limit=200`;
+        }
+
+        const response = await fetch(url, { signal: controller.signal });
         if (!response.ok) throw new Error("Network response was not ok");
         const data = await response.json();
 
@@ -68,16 +75,32 @@ export const SearchBar = ({ setResults }) => {
     };
 
     fetchData();
-
-    // Cleanup: abort fetch on unmount or input change
     return () => controller.abort();
-  }, [searchTerm, setResults]);
+  }, [searchTerm, setResults, searchType]);
 
   return (
     <div className="searchbar-center">
       <div className="input-wrapper">
+        <select
+          value={searchType}
+          onChange={(e) => setSearchType(e.target.value)}
+          style={{
+            marginRight: 10,
+            borderRadius: 12,
+            border: "1px solid #b8c0ff",
+            background: "#f6e3f5",
+            fontSize: "1rem",
+          }}
+        >
+          <option value="album">Album Title</option>
+          <option value="artist">Artist</option>
+        </select>
         <input
-          placeholder="Type to search for an album title..."
+          placeholder={
+            searchType === "album"
+              ? "Type to search for an album title..."
+              : "Type to search for an artist..."
+          }
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
