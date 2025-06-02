@@ -8,24 +8,24 @@ function Profile() {
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const token = localStorage.getItem("token");
 
-  const handleDelete = async (reviewId) => {
-    const confirmed = window.confirm("Are you sure you want to delete this review?");
-    if (!confirmed) return;
+  // const handleDelete = async (reviewId) => {
+  //   const confirmed = window.confirm("Are you sure you want to delete this review?");
+  //   if (!confirmed) return;
   
-    try {
-      const res = await fetch(`http://localhost:3001/reviews/${reviewId}`, {
-        method: "DELETE",
-      });
+  //   try {
+  //     const res = await fetch(`http://localhost:3001/reviews/${reviewId}`, {
+  //       method: "DELETE",
+  //     });
   
-      if (res.ok) {
-        setReviews((prev) => prev.filter((review) => review.id !== reviewId));
-      } else {
-        console.error("Failed to delete review");
-      }
-    } catch (err) {
-      console.error("Error deleting review:", err);
-    }
-  };
+  //     if (res.ok) {
+  //       setReviews((prev) => prev.filter((review) => review.id !== reviewId));
+  //     } else {
+  //       console.error("Failed to delete review");
+  //     }
+  //   } catch (err) {
+  //     console.error("Error deleting review:", err);
+  //   }
+  // };
 
   useEffect(() => {
     if (!token) return;
