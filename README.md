@@ -23,6 +23,7 @@ We also hope to further improve the search, so that we can somehow sort our resu
 2. In the backend: create a psql database named “tuned”. Then, run the following line to create a table necessary for our account system: 
     `psql -U <your username> -d tuned < account.sql`
 
+3. Also in the backend folder, change the .env file to reflect your machine's username and password.
 3. `cd backend`
 4. `node server.mjs`
 5. Open a second terminal
