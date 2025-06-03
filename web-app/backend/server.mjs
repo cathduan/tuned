@@ -169,5 +169,41 @@ app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
 
+// DELETE a review
+app.delete('/reviews/:id', async (req, res) => {
+  const reviewId = req.params.id;
+  try {
+    const result = await pool.query('DELETE FROM reviews WHERE id = $1 RETURNING *', [reviewId]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Review not found' });
+    }
+    res.json({ message: 'Review deleted' });
+  } catch (err) {
+    console.error('Error deleting review:', err);
+    res.status(500).json({ error: 'Failed to delete review' });
+  }
+});
+
+// UPDATE a review
+app.put('/reviews/:id', async (req, res) => {
+  const reviewId = req.params.id;
+  const { rating, notes, date_listened } = req.body;
+  try {
+    const result = await pool.query(
+      `UPDATE reviews
+       SET rating = $1, notes = $2, date_listened = $3
+       WHERE id = $4
+       RETURNING *`,
+      [rating, notes, date_listened, reviewId]
+    );
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Review not found' });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error('Error updating review:', err);
+    res.status(500).json({ error: 'Failed to update review' });
+  }
+});
 
 export default app;

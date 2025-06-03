@@ -1,31 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 import "./Profile.css";
+import StarRating from "./Star";
 
 function Profile() {
   const [reviews, setReviews] = useState([]);
   const [username, setUsername] = useState("");
   const [selectedAlbum, setSelectedAlbum] = useState(null);
+  const [editingReview, setEditingReview] = useState(null); // For editing
+  const [editForm, setEditForm] = useState({ rating: "", notes: "", date_listened: "" });
   const token = localStorage.getItem("token");
-
-  // const handleDelete = async (reviewId) => {
-  //   const confirmed = window.confirm("Are you sure you want to delete this review?");
-  //   if (!confirmed) return;
-  
-  //   try {
-  //     const res = await fetch(`http://localhost:3001/reviews/${reviewId}`, {
-  //       method: "DELETE",
-  //     });
-  
-  //     if (res.ok) {
-  //       setReviews((prev) => prev.filter((review) => review.id !== reviewId));
-  //     } else {
-  //       console.error("Failed to delete review");
-  //     }
-  //   } catch (err) {
-  //     console.error("Error deleting review:", err);
-  //   }
-  // };
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!token) return;
@@ -50,7 +36,7 @@ function Profile() {
                 ...review,
                 albumTitle: albumData.title,
                 artist: albumData["artist-credit"]?.map((a) => a.name).join(", "),
-                albumInfo: albumData, // save full album info for modal
+                albumInfo: albumData,
               };
             } catch (err) {
               return {
@@ -70,6 +56,37 @@ function Profile() {
       console.error("Invalid token or failed to fetch reviews:", err);
     }
   }, [token]);
+
+  // DELETE review
+  const handleDelete = async (reviewId) => {
+    if (!window.confirm("Are you sure you want to delete this review?")) return;
+    try {
+      const res = await fetch(`http://localhost:3001/reviews/${reviewId}`, {
+        method: "DELETE",
+      });
+      if (res.ok) {
+        setReviews((prev) => prev.filter((review) => review.id !== reviewId));
+      } else {
+        alert("Failed to delete review");
+      }
+    } catch (err) {
+      alert("Error deleting review");
+    }
+  };
+
+  // EDIT review
+  const handleEditClick = (review) => {
+    navigate(`/album/${review.album_id}`, {
+      state: {
+        editReview: {
+          id: review.id,
+          rating: review.rating,
+          notes: review.notes,
+          date_listened: review.date_listened.split("T")[0],
+        },
+      },
+    });
+  };
 
   if (!token) {
     return <p>Please log in to view your profile.</p>;
@@ -98,7 +115,15 @@ function Profile() {
                   <button
                     className="album-link"
                     onClick={() => setSelectedAlbum(review.albumInfo)}
-                    style={{ background: "none", border: "none", color: "black", cursor: "pointer", padding: 0, fontSize: "inherit", textDecoration: "underline" }}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      color: "black",
+                      cursor: "pointer",
+                      padding: 0,
+                      fontSize: "inherit",
+                      textDecoration: "underline",
+                    }}
                   >
                     {review.albumTitle}
                   </button>
@@ -114,19 +139,85 @@ function Profile() {
                     day: "numeric",
                   })}
                 </p>
+                <div style={{ marginTop: "0.5rem" }}>
+                  <button onClick={() => handleEditClick(review)} style={{ marginRight: "0.5rem" }}>
+                    Edit
+                  </button>
+                  <button onClick={() => handleDelete(review.id)} style={{ color: "red" }}>
+                    Delete
+                  </button>
+                </div>
               </div>
             </li>
           ))}
         </ul>
       )}
 
+      {/* Edit Modal */}
+      {editingReview && (
+        <div className="modal-overlay" onClick={() => setEditingReview(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Edit Review</h2>
+            <form onSubmit={handleEditSubmit}>
+              <label>
+                Rating:
+                <input
+                  type="number"
+                  name="rating"
+                  min="0"
+                  max="5"
+                  value={editForm.rating}
+                  onChange={handleEditChange}
+                  required
+                />
+              </label>
+              <label>
+                Notes:
+                <input
+                  type="text"
+                  name="notes"
+                  value={editForm.notes}
+                  onChange={handleEditChange}
+                />
+              </label>
+              <label>
+                Date Listened:
+                <input
+                  type="date"
+                  name="date_listened"
+                  value={editForm.date_listened}
+                  onChange={handleEditChange}
+                  required
+                />
+              </label>
+              <div style={{ marginTop: "1rem" }}>
+                <button type="submit" style={{ marginRight: "0.5rem" }}>
+                  Save
+                </button>
+                <button type="button" onClick={() => setEditingReview(null)}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Album Info Modal */}
       {selectedAlbum && (
         <div className="modal-overlay" onClick={() => setSelectedAlbum(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>{selectedAlbum.title}</h2>
-            <p><strong>Artist(s):</strong> {selectedAlbum["artist-credit"]?.map(a => a.name).join(", ")}</p>
-            <p><strong>Release Date:</strong> {selectedAlbum.date}</p>
-            <p><strong>Release Group:</strong> {selectedAlbum["release-group"]?.title}</p>
+            <p>
+              <strong>Artist(s):</strong>{" "}
+              {selectedAlbum["artist-credit"]?.map((a) => a.name).join(", ")}
+            </p>
+            <p>
+              <strong>Release Date:</strong> {selectedAlbum.date}
+            </p>
+            <p>
+              <strong>Release Group:</strong> {selectedAlbum["release-group"]?.title}
+            </p>
             <button onClick={() => setSelectedAlbum(null)}>Close</button>
           </div>
         </div>

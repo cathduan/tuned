@@ -1,8 +1,118 @@
+.AlbumDetailsCenter {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+}
+
 .AlbumReviewContainer {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
+  background: #e3f6f5;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px rgba(180, 180, 255, 0.10);
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  min-width: 320px;
+  max-width: 480px;
+  width: 100%;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.AlbumDetail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.AlbumDetail img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid #b8c0ff;
+  margin-bottom: 1rem;
+}
+
+.AlbumDetail h2 {
+  margin: 0.5rem 0 0.2rem 0;
+  color: #22223b;
+}
+
+.AlbumDetail p {
+  margin: 0.2rem 0;
+  color: #444;
+  font-size: 1rem;
+}
+
+.ReviewSection {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Rating {
+  margin-bottom: 1.2rem;
+}
+
+.Notes input {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  margin: 0.5rem 0;
+  border-radius: 12px;
+  border: 1px solid #b8c0ff;
+  background: #fff;
+  font-size: 1rem;
+  text-align: center;
+}
 
 .date-input {
-width: 12rem;
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #b8c0ff;
+  background: #fff;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+button[type="submit"] {
+  background: #b8c0ff;
+  color: #22223b;
+  border: none;
+  border-radius: 12px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:hover,
+button[type="submit"]:focus {
+  background: #e3f6f5;
+}
+
+.review-message {
+  margin-top: 1rem;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.review-message.success {
+  background: #d4f8e8;
+  color: #227a4e;
+}
+
+.review-message.error {
+  background: #ffe3e3;
+  color: #b00020;
 }

@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {jwtDecode} from 'jwt-decode';
 import { SearchBar } from "./SearchBar";
 import { ResultsList } from "./ResultsList";
+import { useLocation } from "react-router-dom";
 import "./Home.css";
 
 function Home() {
     const token = localStorage.getItem('token');
+    const location = useLocation();
 
     let username = '';
 
@@ -18,7 +20,15 @@ function Home() {
         }
     }
 
-    const [results, setResults] = useState([]); 
+    const [input, setInput] = useState("");
+    const [searchType, setSearchType] = useState("album");
+    const [results, setResults] = useState([]);
+
+    useEffect(() => {
+        if (location.state?.input !== undefined) setInput(location.state.input);
+        if (location.state?.searchType !== undefined) setSearchType(location.state.searchType);
+        if (location.state?.results !== undefined) setResults(location.state.results);
+    }, [location.state]);
 
     return (
       <div>
@@ -40,4 +50,3 @@ function Home() {
   }
   
   export default Home;
-  

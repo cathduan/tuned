@@ -38,10 +38,10 @@ export const SearchBar = ({ setResults }) => {
             searchTerm
           )}&fmt=json&limit=100`;
         } else {
-          // Quote the artist name for multi-word searches
-          url = `https://musicbrainz.org/ws/2/release/?query=artist:"${encodeURIComponent(
+          // No quotes for partial artist search
+          url = `https://musicbrainz.org/ws/2/release/?query=artist:${encodeURIComponent(
             searchTerm
-          )}"&fmt=json&limit=200`;
+          )}&fmt=json&limit=200`;
         }
 
         const response = await fetch(url, { signal: controller.signal });
