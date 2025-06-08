@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./AuthProfileBox.css";
+import { AuthContext } from './AuthContext';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,6 +24,8 @@ function Login() {
         localStorage.setItem('token', data.token); // save JWT token
         localStorage.setItem('userId', data.userId)
         setMessage('Login successful!');
+        navigate('/'); 
+        login();
       } else {
         setMessage(data.message);
       }

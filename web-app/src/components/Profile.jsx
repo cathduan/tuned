@@ -104,7 +104,7 @@ function Profile() {
               <img
                 src={`https://coverartarchive.org/release/${review.album_id}/front-250`}
                 onError={(e) =>
-                  (e.target.src = "https://via.placeholder.com/250?text=No+Art")
+                  (e.target.src = "/album_notfound.png")
                 }
                 alt="Cover Art"
               />
