@@ -7,6 +7,7 @@ function StarRating({ rating, setRating }) {
           return (  
             <span
               className='stars'
+              data-testid={`star-${star}`}
               style={{
                 cursor: 'pointer',
                 color: rating >= star ? 'gold' : 'gray',
@@ -15,6 +16,7 @@ function StarRating({ rating, setRating }) {
               onClick={() => {
                 setRating(star)
               }}
+              key={star}
             >
               {' '}★{' '}
             </span>
