@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 const getCoverArtUrl = (releaseId) =>
   `https://coverartarchive.org/release/${releaseId}/front-250`;
 
-const PLACEHOLDER_URL = "https://via.placeholder.com/64?text=No+Art";
+//const PLACEHOLDER_URL = "https://via.placeholder.com/64?text=No+Art";
+const PLACEHOLDER_IMG = "/album_notfound.png"
 
 export const ResultsList = ({ results }) => {
   return (
@@ -18,7 +19,7 @@ export const ResultsList = ({ results }) => {
             onError={(e) => {
               if (!e.target.dataset.fallback) {
                 e.target.onerror = null;
-                e.target.src = PLACEHOLDER_URL;
+                e.target.src = PLACEHOLDER_IMG;
                 e.target.dataset.fallback = "true";
               }
             }}

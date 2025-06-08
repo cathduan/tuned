@@ -105,7 +105,7 @@ function Profile() {
               <img
                 src={`https://coverartarchive.org/release/${review.album_id}/front-250`}
                 onError={(e) =>
-                  (e.target.src = "https://via.placeholder.com/250?text=No+Art")
+                  (e.target.src = "/album_notfound.png")
                 }
                 alt="Cover Art"
               />
@@ -151,56 +151,6 @@ function Profile() {
             </li>
           ))}
         </ul>
-      )}
-
-      {/* Edit Modal */}
-      {editingReview && (
-        <div className="modal-overlay" onClick={() => setEditingReview(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>Edit Review</h2>
-            <form onSubmit={handleEditSubmit}>
-              <label>
-                Rating:
-                <input
-                  type="number"
-                  name="rating"
-                  min="0"
-                  max="5"
-                  value={editForm.rating}
-                  onChange={handleEditChange}
-                  required
-                />
-              </label>
-              <label>
-                Notes:
-                <input
-                  type="text"
-                  name="notes"
-                  value={editForm.notes}
-                  onChange={handleEditChange}
-                />
-              </label>
-              <label>
-                Date Listened:
-                <input
-                  type="date"
-                  name="date_listened"
-                  value={editForm.date_listened}
-                  onChange={handleEditChange}
-                  required
-                />
-              </label>
-              <div style={{ marginTop: "1rem" }}>
-                <button type="submit" style={{ marginRight: "0.5rem" }}>
-                  Save
-                </button>
-                <button type="button" onClick={() => setEditingReview(null)}>
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
       )}
 
       {/* Album Info Modal */}

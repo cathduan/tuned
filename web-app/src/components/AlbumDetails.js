@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import StarRating from "./Star";
+//import placeholderImage from '../../public/album_notfound.png'; 
 import "./AlbumDetails.css";
 
 export const AlbumDetails = () => {
@@ -26,7 +27,8 @@ export const AlbumDetails = () => {
   const getCoverArtUrl = (releaseId) =>
     `https://coverartarchive.org/release/${releaseId}/front-250`;
 
-  const PLACEHOLDER_URL = "https://via.placeholder.com/250?text=No+Art";
+  //const PLACEHOLDER_URL = "https://via.placeholder.com/250?text=No+Art";
+  const PLACEHOLDER_IMG = "/album_notfound.png";
 
   useEffect(() => {
     const fetchAlbum = async () => {
@@ -112,7 +114,10 @@ export const AlbumDetails = () => {
         <div className="AlbumDetail">
           <img
             src={getCoverArtUrl(album.id)}
-            onError={(e) => (e.target.src = PLACEHOLDER_URL)}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = PLACEHOLDER_IMG;
+            }}
             alt="Cover Art"
           />
           <h2>{album.title}</h2>
