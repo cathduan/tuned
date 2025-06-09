@@ -2,10 +2,8 @@
  * @file Register.jsx
  * @description Allows a new user to register, then automatically logs them in and navigates to the homepage.
  * Handles form input, API communication, and login persistence using context and localStorage.
- * 
- * @authors
- *   - Charlie Ney
- * @date 6/8/25
+ * @authors Charlie Ney, Cathy Duan
+ * @date 6/9/25
  */
 
 import { useState, useContext } from 'react';

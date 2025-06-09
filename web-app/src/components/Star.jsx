@@ -1,14 +1,11 @@
 /**
  * @file Star.js
  * @description Renders a 1–5 star rating component. 
- *   - Charlie Ney, Cathy Duan
- * @date 6/8/25
+ * @authors Charlie Ney, Cathy Duan
+ * @date 6/9/25
  */
 
-
 /**
- * StarRating component
- * @component
  * @param {Object} props
  * @param {number} props.rating - Current star rating (1 to 5).
  * @param {Function} props.setRating - Callback function to update the rating.

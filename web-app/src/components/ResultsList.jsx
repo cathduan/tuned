@@ -2,10 +2,8 @@
  * @file ResultsList.jsx
  * @description Renders a list of album search results, including cover art, title (linked),
  * artist name, and release date.
- * @author 
- *   - Charlie Ney
- *   - Cathy Duan
- * @date 6/8/25
+ * @authors Charlie Ney, Cathy Duan
+ * @date 6/9/25
  */
 
 import "./ResultsList.css";

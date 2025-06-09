@@ -1,10 +1,8 @@
 /**
  * @file SearchBar.js
  * @description SearchBar component that allows users to search for album titles or artists using the MusicBrainz API
- * @authors 
- *   - Charlie Ney
- *   - Cathy Duan
- * @date 6/8/25
+ * @authors Charlie Ney, Cathy Duan
+ * @date 6/9/25
  */
 
 import { useState, useEffect, useRef } from "react";

@@ -2,7 +2,7 @@
  * @file Home.js
  * @description Homepage for Tuned that displays a message depending on login status.
  * Uses the SearchBar and ResulstsList components to let users search and see search results.
- * @authors Cathy, Charlie
+ * @authors Cathy Duan, Charlie Ney
  * @date 6/9/25
  */
 import { useState, useEffect, useContext } from 'react';

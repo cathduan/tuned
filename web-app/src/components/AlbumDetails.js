@@ -2,7 +2,7 @@
  * @file AlbumDetails.js
  * @description Album's metadata is fetched from Musicbrainz API and selected metadata is displayed.
  * Users can review the album with stars, notes, and document a time of listen. 
- * @authors Cathy, Charlie
+ * @authors Cathy Duan, Charlie Ney
  * @date 6/9/25
  */
 import React, { useEffect, useState } from "react";
@@ -127,8 +127,8 @@ export const AlbumDetails = () => {
   const backbutton = "/backbutton.png";
 
   return (
-    <div className="AlbumDetailsCenter">
-      <div className="AlbumReviewContainer">
+    <div className="album-details-center">
+      <div className="album-review-container">
         <button onClick={handleBack} className="back-button">
           <img src={backbutton} 
             alt="Back" 

@@ -1,5 +1,9 @@
-// Main application component that sets up routing and navigation using React Router.
-
+/** 
+ * @file App.js
+ * @description Main application component that sets up routing and navigation using React Router.
+ * @authors Charlie Ney, Cathy Duan
+ * @date 6/9/25
+ */ 
 import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';

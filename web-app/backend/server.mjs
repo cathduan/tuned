@@ -1,4 +1,12 @@
-
+/**
+ * @file server.mjs
+ * @description Main server file for Tuned. Handles register/login;
+ * creating, retrieving, editing, and deleting user reviews; 
+ * and searching via the MusicBrainz API.
+ * Uses Express, psql, bcrypt, JWT, dotenv, and MusicBrainz.
+ * @authors Cathy Duan, Charlie Ney
+ * @date 6/9/25
+ */
 import express from 'express';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
@@ -24,11 +32,21 @@ const pool = new Pool({
 
 app.use(express.json());
 
+/**
+ * @route GET /
+ * @desc Basic root route to verify the server is running.
+ */
 app.get('/', (req, res) => {
   res.send('Test server for Tuned is running'); 
 
 });
 
+/**
+ * @route POST /register
+ * @desc Register a new user with hashed password.
+ * @body { username: string, password: string }
+ * @returns { message, user }
+ */
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -52,6 +70,13 @@ app.post('/register', async (req, res) => {
   }
 });
 
+/**
+ * @route POST /login
+ * @desc Authenticate a user and return a JWT token.
+ * @access Public
+ * @body { username: string, password: string }
+ * @returns { message, token, userId }
+ */
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
   try {

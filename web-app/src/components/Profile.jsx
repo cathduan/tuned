@@ -1,11 +1,9 @@
 /**
  * @file Profile.jsx
- * @description Profile page that displays a user's reviews and allows them to delete or edit their entries.
- * 
- * @author
- *   - Charlie Ney
- *   - Cathy Duan
- * @date 6/8/25
+ * @description Profile page that displays a logged-in user's reviews and allows them to delete or edit their entries.
+ * Fetches reviews from backend and album metadata from MusicBrainz API.
+ * @authors Charlie Ney, Cathy Duan
+ * @date 6/9/25
  */
 
 import React, { useEffect, useState } from "react";
@@ -23,8 +21,8 @@ function Profile() {
   const navigate = useNavigate();
 
   // Icons
-  const editbutton = "/edit.png";
-  const deletebutton = "/delete.png";
+  const editButton = "/edit.png";
+  const deleteButton = "/delete.png";
 
   /**
    * Fetch and decode token on mount to get user ID and username,
@@ -37,11 +35,11 @@ function Profile() {
       const decodedToken = jwtDecode(token);
       const userId = decodedToken.id;
       setUsername(decodedToken.username);
-
+      // Fetch user reviews
       const fetchReviews = async () => {
         const res = await fetch(`http://localhost:3001/profiles/${userId}/reviews`);
         const data = await res.json();
-
+        // For each review, fetch album metadata from MusicBrainz API
         const reviewsWithAlbumData = await Promise.all(
           data.map(async (review) => {
             try {
@@ -77,7 +75,8 @@ function Profile() {
   }, [token]);
 
   /**
-   * Delete a review after confirmation
+   * Deletes a review from the backend after confirmation.
+   * @param {string} reviewId - id of the review to delete
    */
   const handleDelete = async (reviewId) => {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
@@ -98,7 +97,8 @@ function Profile() {
   };
 
   /**
-   * Navigate to album detail page with review data for editing
+   * Navigate to album detail page with review data for editing.
+   * @param {object} review - Review chosen to edit
    */
   const handleEditClick = (review) => {
     navigate(`/album/${review.album_id}`, {
@@ -132,10 +132,10 @@ function Profile() {
               {/* Edit/Delete Buttons */}
               <div className="top-right-buttons">
                 <button onClick={() => handleEditClick(review)}>
-                  <img src={editbutton} alt="edit" style={{ height: "1.5rem", width: "1.5rem" }} />
+                  <img src={editButton} alt="edit" style={{ height: "1.5rem", width: "1.5rem" }} />
                 </button>
                 <button onClick={() => handleDelete(review.id)}>
-                  <img src={deletebutton} alt="delete" style={{ height: "1.5rem", width: "1.5rem" }} />
+                  <img src={deleteButton} alt="delete" style={{ height: "1.5rem", width: "1.5rem" }} />
                 </button>
               </div>
 

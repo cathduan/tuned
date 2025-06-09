@@ -2,7 +2,7 @@
  * @file AuthContext.js
  * @description Used throughout the web-app to determine if a user is logged in.
  * Provides authentication and login/logout helper methods. 
- * @authors Cathy, Charlie
+ * @authors Cathy Duan, Charlie Ney
  * @date 6/9/25
  */
 import React, { createContext, useEffect, useState } from "react";

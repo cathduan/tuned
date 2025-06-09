@@ -2,7 +2,7 @@
  * @file Login.js
  * @description Login page for Tuned. Authenticates users using their username and password.
  * If credentials are valid, a JWT token is stored in localStorage and the user is redirected to home.
- * @authors Cathy, Charlie
+ * @authors Cathy Duan, Charlie Ney
  * @date 6/9/25
  */
 import React, { useState, useContext } from 'react';
