@@ -1,22 +1,22 @@
-.ProfilePage {
+.profile-page {
     width: 100%;
     max-width: 800px;
     margin: 2rem auto;
     padding: 0 16px;
   }
   
-  .ProfilePage h1 {
+  .profile-page h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
     text-align: center;
   }
   
-  .ProfilePage h2 {
+  .profile-page h2 {
     font-size: 1.5rem;
     margin: 1.5rem 0 1rem;
   }
   
-  .ReviewList {
+  .review-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -27,7 +27,7 @@
     list-style: none;
   }
   
-  .ReviewCard {
+  .review-card {
     display: flex;
     align-items: center;
     background: #e3f6f5;
@@ -37,7 +37,7 @@
     transition: background 0.2s;
   }
   
-  .ReviewCard img {
+  .review-card img {
     width: 64px;
     height: 64px;
     object-fit: cover;
@@ -47,13 +47,13 @@
     border: 1px solid #e0e0e0;
   }
   
-  .ReviewCard div {
+  .review-card div {
     display: flex;
     flex-direction: column;
     gap: 4px;
   }
 
-  .ReviewCard .top-right-buttons {
+  .review-card .top-right-buttons {
     position: relative;
     top: 0.5rem;
     right: 0.5rem;
@@ -62,14 +62,14 @@
     z-index: 2;
   }
   
-  .ReviewCard .top-right-buttons button {
+  .review-card .top-right-buttons button {
     background: transparent;
     border: none;
     padding: 0;
     cursor: pointer;
   }
 
-  .ReviewCard .top-right-buttons img {
+  .review-card .top-right-buttons img {
     background: transparent !important;
     box-shadow: none;
     border: none;
@@ -77,7 +77,7 @@
     margin: 0;
   }
   
-  .ReviewCard p {
+  .review-card p {
     margin: 0;
     font-size: 0.95rem;
     color: #22223b;
@@ -103,4 +103,3 @@
     width: 90%;
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
   }
-  

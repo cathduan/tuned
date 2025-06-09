@@ -1,13 +1,30 @@
+/**
+ * @file SearchBar.js
+ * @description SearchBar component that allows users to search for album titles or artists using the MusicBrainz API
+ * @authors 
+ *   - Charlie Ney
+ *   - Cathy Duan
+ * @date 6/8/25
+ */
+
 import { useState, useEffect, useRef } from "react";
 import "./SearchBar.css";
 
+/**
+ * @function SearchBar
+ * @description A component for searching albums or artists using the MusicBrainz API. 
+ * @param  setResults -  function to set the results list in the parent.
+ */
 export const SearchBar = ({ setResults }) => {
   const [input, setInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchType, setSearchType] = useState("album");
   const abortControllerRef = useRef(null);
 
-  // Debounce input changes
+  /**
+   * @function useEffect (Debounce Input)
+   * @description handles changes to the search input and sets the actual search term after a 400ms delay.
+   */
   useEffect(() => {
     const handler = setTimeout(() => {
       if (input.trim() !== searchTerm) {
@@ -18,6 +35,10 @@ export const SearchBar = ({ setResults }) => {
     return () => clearTimeout(handler);
   }, [input, searchTerm]);
 
+  /**
+   * @function useEffect (Fetch Results)
+   * @description Fetches results from the MusicBrainz API based on the current searchTerm and searchType.
+   */
   useEffect(() => {
     if (!searchTerm) {
       setResults([]);
@@ -30,6 +51,10 @@ export const SearchBar = ({ setResults }) => {
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
+    /**
+     * @function fetchData
+     * @description Handles fetching and processing results from MusicBrainz depending on the selected search type ("album" or "artist").
+     */
     const fetchData = async () => {
       try {
         let results = [];

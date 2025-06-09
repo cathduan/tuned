@@ -134,7 +134,7 @@ export const AlbumDetails = () => {
             alt="Back" 
             className = "back-button-icon"/>
         </button>
-        <div className="AlbumDetail">
+        <div className="album-detail">
           <img
             src={getCoverArtUrl(album.id)}
             onError={(e) => {
@@ -159,13 +159,13 @@ export const AlbumDetails = () => {
         </div>
 
         <div className="ReviewSection">
-          <section className="Rating">
+          <section className="rating">
             <h2>Star Rating</h2>
             <StarRating rating={rating} setRating={setRating} />
           </section>
 
           <form onSubmit={handleSubmit}>
-            <section className="Notes">
+            <section className="notes">
               <h2>Notes about the album</h2>
               <input
                 type="text"
@@ -175,7 +175,7 @@ export const AlbumDetails = () => {
               />
             </section>
 
-            <section className="DateListened">
+            <section className="date-listened">
               <h2>Date Listened</h2>
               <input
                 type="date"
@@ -198,3 +198,5 @@ export const AlbumDetails = () => {
     </div>
   );
 };
+
+export default AlbumDetails;

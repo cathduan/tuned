@@ -1,5 +1,5 @@
 .centered-box-container,
-.LoginContainer {
+.login-container {
   min-height: 80vh;
   display: flex;
   align-items: center;
@@ -8,7 +8,7 @@
 }
 
 .centered-box,
-.LoginContainer {
+.login-container {
   background: #fff0c1;
   border: solid;
   border-color: rgba(54, 54, 254, 0.08);
@@ -26,13 +26,13 @@
 
 .centered-box h1,
 .centered-box h2,
-.LoginContainer h2 {
+.login-container h2 {
   color: #22223b;
   margin-bottom: 1.2rem;
 }
 
 .centered-box form,
-.LoginContainer form {
+.login-container form {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -40,7 +40,7 @@
 }
 
 .centered-box input,
-.LoginContainer input,
+.login-container input,
 .centered-box textarea {
   width: 99%;
   padding: 0.7rem 0;
@@ -49,12 +49,12 @@
   border: 1px solid #b8c0ff;
   background: #fff;
   font-size: 1rem;
-  text-align: center;          /* Center the text inside the input */
+  text-align: center;
 }
 
 .centered-box button,
-.LoginContainer button {
-  background:#b0d0ef;;
+.login-container button {
+  background: #b0d0ef;
   color: #22223b;
   border: none;
   border-radius: 12px;
@@ -68,18 +68,18 @@
 
 .centered-box button:hover,
 .centered-box button:focus,
-.LoginContainer button:hover,
-.LoginContainer button:focus {
+.login-container button:hover,
+.login-container button:focus {
   background: #e3f6f5;
 }
 
-.centered-box ul.ReviewList {
+.centered-box ul.review-list {
   width: 100%;
   padding: 0;
   margin: 0;
 }
 
-.centered-box li.ReviewCard {
+.centered-box li.review-card {
   background: #f6e3f5;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(180, 180, 255, 0.08);
@@ -90,7 +90,7 @@
   align-items: flex-start;
 }
 
-.centered-box li.ReviewCard img {
+.centered-box li.review-card img {
   width: 80px;
   height: 80px;
   object-fit: cover;
@@ -99,12 +99,12 @@
   border: 1px solid #b8c0ff;
 }
 
-.centered-box li.ReviewCard:last-child {
+.centered-box li.review-card:last-child {
   margin-bottom: 0;
 }
 
 .centered-box p,
-.LoginContainer p {
+.login-container p {
   color: #22223b;
   margin: 0.7rem 0 0 0;
   word-break: break-word;
