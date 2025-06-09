@@ -1,8 +1,9 @@
 /**
  * @file AuthContext.js
- * @description 
+ * @description Used throughout the web-app to determine if a user is logged in.
+ * Provides authentication and login/logout helper methods. 
  * @authors Cathy, Charlie
- * @date 6/8/25
+ * @date 6/9/25
  */
 import React, { createContext, useEffect, useState } from "react";
 
@@ -11,7 +12,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
-  useEffect(() => {
+  useEffect(() => { // Check if a token exists and update the login state
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
   };
 
-  return (
+  return ( // Provide the authentication state and actions to children components 
     <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
       {children}
     </AuthContext.Provider>

@@ -1,24 +1,24 @@
 /**
  * @file Home.js
- * @description 
+ * @description Homepage for Tuned that displays a message depending on login status.
+ * Uses the SearchBar and ResulstsList components to let users search and see search results.
  * @authors Cathy, Charlie
- * @date 6/8/25
+ * @date 6/9/25
  */
 import { useState, useEffect, useContext } from 'react';
 import {jwtDecode} from 'jwt-decode';
 import { SearchBar } from "./SearchBar";
 import { ResultsList } from "./ResultsList";
 import { useLocation } from "react-router-dom";
-import { AuthContext } from './AuthContext';
 import "./Home.css";
 
 function Home() {
     const token = localStorage.getItem('token');
-    const location = useLocation();
+    const location = useLocation(); // Used to get prior search input
 
     let username = '';
 
-    if (token) {
+    if (token) { // If token exists, decode to extract username
         try {
         const decoded = jwtDecode(token);
         username = decoded.username;
@@ -27,11 +27,11 @@ function Home() {
         }
     }
 
-    //const { isLoggedIn, username } = useContext(AuthContext);
     const [input, setInput] = useState("");
-    const [searchType, setSearchType] = useState("album");
+    const [searchType, setSearchType] = useState("album"); // Tracks search by artist or album title
     const [results, setResults] = useState([]);
 
+    // Restores previous search state if returning from another page 
     useEffect(() => {
         if (location.state?.input !== undefined) setInput(location.state.input);
         if (location.state?.searchType !== undefined) setSearchType(location.state.searchType);

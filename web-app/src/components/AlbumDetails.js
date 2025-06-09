@@ -1,8 +1,9 @@
 /**
  * @file AlbumDetails.js
- * @description Fetches the logged-in user's reviews and displays them with options to edit and delete them. 
+ * @description Album's metadata is fetched from Musicbrainz API and selected metadata is displayed.
+ * Users can review the album with stars, notes, and document a time of listen. 
  * @authors Cathy, Charlie
- * @date 6/8/25
+ * @date 6/9/25
  */
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
@@ -11,7 +12,7 @@ import StarRating from "./Star";
 import "./AlbumDetails.css";
 
 export const AlbumDetails = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Release id of an album
   const location = useLocation();
   const navigate = useNavigate();
   const editReview = location.state?.editReview; 
@@ -23,37 +24,38 @@ export const AlbumDetails = () => {
   const [dateListened, setDateListened] = useState(editReview ? editReview.date_listened : "");
   const [message, setMessage] = useState("");
 
+  // Decodes the retrieved JWT token from localStorage to extract the user id
   const token = localStorage.getItem("token");
   const decodedToken = jwtDecode(token);
   const userId = decodedToken.id;
 
+  /**
+  * Creates the cover art url for the given release id. Uses the Cover Art Archive.
+  * @param {String} releaseId - The MusicBrainz release id of the album.
+  * @returns {String} - The cover art image url.
+  */
   const getCoverArtUrl = (releaseId) =>
     `https://coverartarchive.org/release/${releaseId}/front-250`;
 
   const PLACEHOLDER_IMG = "/album_notfound.png";
 
-   /**
-  * Fetches the album information
-  * @param {Integer} id - the release id of the album
-  * @return {String} album details
+  /**
+  * Fetches the album metadata.
+  * @param {String} id - The release id of the album.
+  * @return {String} Album details.
   */
   useEffect(() => {
   const fetchAlbum = async () => {
     try {
-      // First try as release ID
-      let res = await fetch(
+      let res = await fetch( // First try as release ID
         `https://musicbrainz.org/ws/2/release/${id}?inc=artist-credits+release-groups&fmt=json`
       );
-      
-      // If 404, try as release-group ID
-      if (!res.ok) {
+      if (!res.ok) { // If 404, try as release-group ID
         const rgRes = await fetch(
           `https://musicbrainz.org/ws/2/release-group/${id}?inc=artists&fmt=json`
         );
         const rgData = await rgRes.json();
-        
-        // Get first release in this group
-        const releasesRes = await fetch(
+        const releasesRes = await fetch( // Get first release in this group
           `https://musicbrainz.org/ws/2/release?release-group=${id}&fmt=json&limit=1`
         );
         const releasesData = await releasesRes.json();
@@ -66,25 +68,26 @@ export const AlbumDetails = () => {
           return;
         }
       }
-      
       setAlbum(await res.json());
     } catch (err) {
       console.error("Failed to fetch album details:", err);
     }
   };
-
   fetchAlbum();
 }, [id]);
 
   if (!album) return <p>Loading album info...</p>;
 
+  /**
+   * When submit button is clicked, posts a review in the backend database or updates an existing review.
+   * @param {Event} e - The form submission event click.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       let res;
-      if (editReview) {
-        // Update existing review
+      if (editReview) { // Update existing review by sending a PUT request to update
         res = await fetch(`http://localhost:3001/reviews/${editReview.id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -94,8 +97,7 @@ export const AlbumDetails = () => {
             date_listened: dateListened,
           }),
         });
-      } else {
-        // Create new review
+      } else { // Create new review by sending a POST request
         res = await fetch("http://localhost:3001/reviews", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -110,7 +112,6 @@ export const AlbumDetails = () => {
       }
 
       if (!res.ok) throw new Error("Failed to save review");
-      navigate('/');
       setMessage("Review saved!");
     } catch (err) {
       console.error(err);
@@ -118,7 +119,7 @@ export const AlbumDetails = () => {
     }
   };
 
-  // Back button handler
+  // Back button handler. Navigates back to the home page.
   const handleBack = () => {
     navigate("/", { state: previousSearchState });
   };
@@ -128,25 +129,10 @@ export const AlbumDetails = () => {
   return (
     <div className="AlbumDetailsCenter">
       <div className="AlbumReviewContainer">
-        <button
-          onClick={handleBack}
-          style={{
-            alignSelf: "flex-start",
-            marginBottom: "1rem",
-            background: "#b8c0ff",
-            color: "#22223b",
-            border: "none",
-            borderRadius: "12px",
-            padding: "0.5rem 1.2rem",
-            fontWeight: 500,
-            cursor: "pointer",
-          }}
-        >
-          <img
-        src={backbutton}
-        alt="Back"
-        style={{ height: "2rem", width: "2rem" }}
-          />
+        <button onClick={handleBack} className="back-button">
+          <img src={backbutton} 
+            alt="Back" 
+            className = "back-button-icon"/>
         </button>
         <div className="AlbumDetail">
           <img
