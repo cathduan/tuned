@@ -42,7 +42,7 @@ function App() {
                 <span role="img" aria-label="Profile" style={{ fontSize: "1.3rem" }}>👤</span>
                 {" "}Your Reviews
               </Link>
-              <button onClick={handleLogout} className="logout-button">Logout</button>
+              <Link onClick={handleLogout} className="logout-button">Logout</Link>
             </>
           )}
         </div>

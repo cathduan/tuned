@@ -1,3 +1,9 @@
+/**
+ * @file AuthContext.js
+ * @description 
+ * @authors Cathy, Charlie
+ * @date 6/8/25
+ */
 import React, { createContext, useEffect, useState } from "react";
 
 export const AuthContext = createContext();

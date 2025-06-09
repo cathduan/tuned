@@ -1,3 +1,9 @@
+/**
+ * @file Home.js
+ * @description 
+ * @authors Cathy, Charlie
+ * @date 6/8/25
+ */
 import { useState, useEffect, useContext } from 'react';
 import {jwtDecode} from 'jwt-decode';
 import { SearchBar } from "./SearchBar";

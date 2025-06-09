@@ -1,3 +1,9 @@
+/**
+ * @file AlbumDetails.js
+ * @description Fetches the logged-in user's reviews and displays them with options to edit and delete them. 
+ * @authors Cathy, Charlie
+ * @date 6/8/25
+ */
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -8,10 +14,8 @@ export const AlbumDetails = () => {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const editReview = location.state?.editReview;
-
-  // Save previous search state if present
-  const previousSearchState = location.state?.previousSearchState;
+  const editReview = location.state?.editReview; 
+  const previousSearchState = location.state?.previousSearchState;  // Save previous search state if present
 
   const [album, setAlbum] = useState(null);
   const [rating, setRating] = useState(editReview ? Number(editReview.rating) : 0);
@@ -28,6 +32,11 @@ export const AlbumDetails = () => {
 
   const PLACEHOLDER_IMG = "/album_notfound.png";
 
+   /**
+  * Fetches the album information
+  * @param {Integer} id - the release id of the album
+  * @return {String} album details
+  */
   useEffect(() => {
   const fetchAlbum = async () => {
     try {
@@ -109,7 +118,7 @@ export const AlbumDetails = () => {
     }
   };
 
-  // --- Back button handler ---
+  // Back button handler
   const handleBack = () => {
     navigate("/", { state: previousSearchState });
   };
