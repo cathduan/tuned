@@ -1,20 +1,35 @@
+/**
+ * @file Profile.jsx
+ * @description Profile page that displays a user's reviews and allows them to delete or edit their entries.
+ * 
+ * @author
+ *   - Charlie Ney
+ *   - Cathy Duan
+ * @date 6/8/25
+ */
+
 import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
-import StarRating from "./Star.jsx";
-
 
 function Profile() {
+  // State variables
   const [reviews, setReviews] = useState([]);
   const [username, setUsername] = useState("");
   const [selectedAlbum, setSelectedAlbum] = useState(null);
+
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+
+  // Icons
   const editbutton = "/edit.png";
   const deletebutton = "/delete.png";
 
- 
+  /**
+   * Fetch and decode token on mount to get user ID and username,
+   * then fetch all reviews and related album info.
+   */
   useEffect(() => {
     if (!token) return;
 
@@ -23,7 +38,6 @@ function Profile() {
       const userId = decodedToken.id;
       setUsername(decodedToken.username);
 
-      // Fetch user reviews and album info
       const fetchReviews = async () => {
         const res = await fetch(`http://localhost:3001/profiles/${userId}/reviews`);
         const data = await res.json();
@@ -42,6 +56,7 @@ function Profile() {
                 albumInfo: albumData,
               };
             } catch (err) {
+              // Fallback if MusicBrainz fetch fails
               return {
                 ...review,
                 albumTitle: "Unknown Title",
@@ -51,6 +66,7 @@ function Profile() {
             }
           })
         );
+
         setReviews(reviewsWithAlbumData);
       };
 
@@ -60,13 +76,17 @@ function Profile() {
     }
   }, [token]);
 
-  // Delete a review
+  /**
+   * Delete a review after confirmation
+   */
   const handleDelete = async (reviewId) => {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
+
     try {
       const res = await fetch(`http://localhost:3001/reviews/${reviewId}`, {
         method: "DELETE",
       });
+
       if (res.ok) {
         setReviews((prev) => prev.filter((review) => review.id !== reviewId));
       } else {
@@ -77,7 +97,9 @@ function Profile() {
     }
   };
 
-  // Navigate to album details for editing
+  /**
+   * Navigate to album detail page with review data for editing
+   */
   const handleEditClick = (review) => {
     navigate(`/album/${review.album_id}`, {
       state: {
@@ -91,36 +113,39 @@ function Profile() {
     });
   };
 
+  // Redirect if not logged in
   if (!token) {
     return <p>Please log in to view your profile.</p>;
   }
 
   return (
-    <div className="ProfilePage">
+    <div className="profile-page">
       <h1>{username}'s profile</h1>
       <h2>Your Reviews</h2>
+
       {reviews.length === 0 ? (
         <p>You haven't reviewed any albums yet.</p>
       ) : (
-        <ul className="ReviewList">
+        <ul className="review-list">
           {reviews.map((review) => (
-            <li key={review.id} className="ReviewCard">
+            <li key={review.id} className="review-card">
+              {/* Edit/Delete Buttons */}
               <div className="top-right-buttons">
-                  <button onClick={() => handleEditClick(review)}>
-                    <img src={editbutton} alt="edit" style={{ height: "1.5rem", width: "1.5rem" }} />
-                  </button>
-                  <button onClick={() => handleDelete(review.id)}>
-                    <img src={deletebutton} alt="delete" style={{ height: "1.5rem", width: "1.5rem" }} />
-                  </button>
-                </div>
+                <button onClick={() => handleEditClick(review)}>
+                  <img src={editbutton} alt="edit" style={{ height: "1.5rem", width: "1.5rem" }} />
+                </button>
+                <button onClick={() => handleDelete(review.id)}>
+                  <img src={deletebutton} alt="delete" style={{ height: "1.5rem", width: "1.5rem" }} />
+                </button>
+              </div>
+
+              {/* Album Info Display */}
               <div>
-              <img
-                src={`https://coverartarchive.org/release/${review.album_id}/front-250`}
-                onError={(e) =>
-                  (e.target.src = "/album_notfound.png")
-                }
-                alt="Cover Art"
-              />
+                <img
+                  src={`https://coverartarchive.org/release/${review.album_id}/front-250`}
+                  onError={(e) => (e.target.src = "/album_notfound.png")}
+                  alt="Cover Art"
+                />
                 <p>
                   <strong>Album:</strong>{" "}
                   <button
@@ -156,57 +181,7 @@ function Profile() {
         </ul>
       )}
 
-      {/* Edit Modal
-      {editingReview && (
-        <div className="modal-overlay" onClick={() => setEditingReview(null)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <h2>Edit Review</h2>
-            <form onSubmit={handleEditSubmit}>
-              <label>
-                Rating:
-                <input
-                  type="number"
-                  name="rating"
-                  min="0"
-                  max="5"
-                  value={editForm.rating}
-                  onChange={handleEditChange}
-                  required
-                />
-              </label>
-              <label>
-                Notes:
-                <input
-                  type="text"
-                  name="notes"
-                  value={editForm.notes}
-                  onChange={handleEditChange}
-                />
-              </label>
-              <label>
-                Date Listened:
-                <input
-                  type="date"
-                  name="date_listened"
-                  value={editForm.date_listened}
-                  onChange={handleEditChange}
-                  required
-                />
-              </label>
-              <div style={{ marginTop: "1rem" }}>
-                <button type="submit" style={{ marginRight: "0.5rem" }}>
-                  Save
-                </button>
-                <button type="button" onClick={() => setEditingReview(null)}>
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )} */}
-
-      {/* Album Info Modal */}
+      {/* Modal: Album Info */}
       {selectedAlbum && (
         <div className="modal-overlay" onClick={() => setSelectedAlbum(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>

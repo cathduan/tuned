@@ -1,24 +1,35 @@
-// Renders a 1–5 clickable star rating component. Clicking a star updates the current rating via setRating prop.
+/**
+ * @file Star.js
+ * @description Renders a 1–5 star rating component. 
+ *   - Charlie Ney, Cathy Duan
+ * @date 6/8/25
+ */
 
-import React from "react";
 
+/**
+ * StarRating component
+ * @component
+ * @param {Object} props
+ * @param {number} props.rating - Current star rating (1 to 5).
+ * @param {Function} props.setRating - Callback function to update the rating.
+ * @returns {JSX.Element}  star rating display.
+ */
 function StarRating({ rating, setRating }) {
   return (
     <div>
-      {/* Render 5 stars */}
       {[1, 2, 3, 4, 5].map((star) => (
         <span
           className="stars"
-          data-testid={`star-${star}`} // useful for testing
+          data-testid={`star-${star}`}
           style={{
             cursor: "pointer",
-            color: rating >= star ? "gold" : "gray", // highlight filled stars
+            color: rating >= star ? "gold" : "gray",
             fontSize: "30px",
           }}
-          onClick={() => setRating(star)} // update rating on click
+          onClick={() => setRating(star)}
           key={star}
         >
-          ★
+          {' '}★{' '}
         </span>
       ))}
     </div>

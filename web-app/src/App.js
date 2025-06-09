@@ -9,7 +9,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Home from './components/Home';
 import Profile from './components/Profile';
-import { AlbumDetails } from "./components/AlbumDetails";
+import AlbumDetails from "./components/AlbumDetails";
 import { AuthContext } from './components/AuthContext';
 
 function App() {
