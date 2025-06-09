@@ -1,8 +1,7 @@
 /**
  * @file server.mjs
- * @description Main server file for Tuned. Handles register/login;
- * creating, retrieving, editing, and deleting user reviews; 
- * and searching via the MusicBrainz API.
+ * @description Main server file for Tuned. Handles register/login (profile creation and userauthentication); 
+ * creating, retrieving, editing, and deleting user reviews; and searching via the MusicBrainz API.
  * Uses Express, psql, bcrypt, JWT, dotenv, and MusicBrainz.
  * @authors Cathy Duan, Charlie Ney
  * @date 6/9/25
@@ -14,14 +13,16 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
 
-dotenv.config();
+dotenv.config(); // Get variables .env file
 
+// Initialize app
 const port = 3001;
 const app = express();
 const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 
 app.use(cors());
 
+// Connect to psql using dotenv variables
 const pool = new Pool({
   host: process.env.DATABASE_HOST,
   user: process.env.DATABASE_USER,
@@ -34,7 +35,7 @@ app.use(express.json());
 
 /**
  * @route GET /
- * @desc Basic root route to verify the server is running.
+ * @desc Basic root route to verify that the server is running.
  */
 app.get('/', (req, res) => {
   res.send('Test server for Tuned is running'); 
@@ -43,9 +44,7 @@ app.get('/', (req, res) => {
 
 /**
  * @route POST /register
- * @desc Register a new user with hashed password.
- * @body { username: string, password: string }
- * @returns { message, user }
+ * @desc Register a new user with a hashed password (using bcrypt and salting).
  */
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -54,7 +53,6 @@ app.post('/register', async (req, res) => {
     if (userExists.rows.length > 0) {
       return res.status(400).json({ message: 'User already exists' });
     }
-
     const salt = await bcrypt.genSalt(10);
     const password_hash = await bcrypt.hash(password, salt);
 
@@ -73,9 +71,6 @@ app.post('/register', async (req, res) => {
 /**
  * @route POST /login
  * @desc Authenticate a user and return a JWT token.
- * @access Public
- * @body { username: string, password: string }
- * @returns { message, token, userId }
  */
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -100,6 +95,10 @@ app.post('/login', async (req, res) => {
   }
 });
 
+/**
+ * @route POST /reviews
+ * @desc Create a new review for an album and associate it with that user id.
+ */
 app.post('/reviews', async (req, res) => {
   console.log('Request body:', req.body);  
   const { userId, albumId, rating, notes, dateListened } = req.body;
@@ -118,7 +117,10 @@ app.post('/reviews', async (req, res) => {
   }
 });
 
-
+/**
+ * @route GET /profiles
+ * @desc Fetch all user profiles.
+ */
 app.get('/profiles', async (req, res) => { 
   try {
       const result = await pool.query("SELECT * FROM profiles");
@@ -129,6 +131,10 @@ app.get('/profiles', async (req, res) => {
   }
 });
 
+/**
+ * @route GET /reviews
+ * @desc Fetch all reviews.
+ */
 app.get('/reviews', async (req, res) => { 
   try {
       const result = await pool.query("SELECT * FROM reviews");
@@ -139,6 +145,10 @@ app.get('/reviews', async (req, res) => {
   }
 });
 
+/**
+ * @route GET /profiles/:id/reviews
+ * @desc Get all reviews made by a specific user.
+ */
 app.get("/profiles/:id/reviews", async (req, res) => {
   const userId = req.params.id;
 
@@ -159,42 +169,10 @@ app.get("/profiles/:id/reviews", async (req, res) => {
   }
 });
 
-async function searchAlbums(query) {
-  try {
-    const { MusicBrainzApi } = await import('musicbrainz-api');
-
-    const config = {
-      baseUrl: 'https://musicbrainz.org',
-      appName: 'Tuned',
-      appVersion: '0.1.0',
-      appContactInfo: 'charlieney@gmail.com',
-    };
-
-    const mbApi = new MusicBrainzApi(config);
-    const albums = await mbApi.search('release', { release: query });
-    return albums;
-  } catch (err) {
-    console.error('Error searching albums:', err);
-    return null;
-  }
-}
-
-app.get("/search-albums", async (req, res) => {
-  const query = req.query.q; // example: /search-albums?q=Abbey+Road
-  if (!query) {
-    res.status(400).json({ error: "Missing 'q' query parameter" });
-    return;
-  }
-
-  const albums = await searchAlbums(query);
-  res.status(200).json(albums);
-});
-
-app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
-});
-
-// DELETE a review
+/**
+ * @route DELETE /reviews/:id
+ * @desc Delete a review by its id.
+ */
 app.delete('/reviews/:id', async (req, res) => {
   const reviewId = req.params.id;
   try {
@@ -209,7 +187,10 @@ app.delete('/reviews/:id', async (req, res) => {
   }
 });
 
-// UPDATE a review
+/**
+ * @route PUT /reviews/:id
+ * @desc Update an existing review that the user made.
+ */
 app.put('/reviews/:id', async (req, res) => {
   const reviewId = req.params.id;
   const { rating, notes, date_listened } = req.body;
@@ -230,5 +211,10 @@ app.put('/reviews/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to update review' });
   }
 });
+
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
+});
+
 
 export default app;

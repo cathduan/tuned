@@ -3,7 +3,7 @@
  * @description Unit tests for the SearchBar component.
  * @authors 
  *   - Charlie Ney, Cathy Duan
- * @date 6/8/25
+ * @date 6/9/25
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";

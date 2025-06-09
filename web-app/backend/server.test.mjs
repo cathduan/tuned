@@ -1,37 +1,12 @@
-// import { describe, it, expect } from 'vitest';
-// import request from 'supertest';
-// import app from './server.mjs';
-
-// describe('Basic Express API', () => {
-//   it('GET / should return server running message', async () => {
-//     const res = await request(app).get('/');
-//     expect(res.status).toBe(200);
-//     expect(res.text).toContain('Test server for Tuned is running');
-//   });
-
-//   it('GET /profiles should return an array (possibly empty)', async () => {
-//     const res = await request(app).get('/profiles');
-//     expect(res.status).toBe(200);
-//     expect(Array.isArray(res.body)).toBe(true);
-//   });
-
-//   it('GET /reviews should return an array (possibly empty)', async () => {
-//     const res = await request(app).get('/reviews');
-//     expect(res.status).toBe(200);
-//     expect(Array.isArray(res.body)).toBe(true);
-//   });
-
-//   it('GET /nonexistent should return 404', async () => {
-//     const res = await request(app).get('/nonexistent');
-//     expect(res.status).toBe(404);
-//   });
-// });
-
-//import { describe, it, expect, beforeAll, vi } from 'vitest';
+/**
+ * @file server.test.jsx
+ * @description Unit tests for the Tuned backend server using Vitest and Supertest. 
+ * @authors Charlie Ney
+ * @date 6/9/25
+ */
 import { describe, it, expect, beforeAll, beforeEach, vi } from 'vitest';
 import request from 'supertest';
 import app from './server.mjs';
-
 
 // Mock pg Pool before tests run
 vi.mock('pg', async () => {
@@ -64,8 +39,8 @@ describe('Tuned server basic tests', () => {
   it('should register a user if they don’t already exist', async () => {
     // Simulate no existing user
     mockPool.query
-      .mockResolvedValueOnce({ rows: [] }) // check if user exists
-      .mockResolvedValueOnce({ rows: [{ id: 1, username: 'testuser' }] }); // insert user
+      .mockResolvedValueOnce({ rows: [] }) // Check if user exists
+      .mockResolvedValueOnce({ rows: [{ id: 1, username: 'testuser' }] }); // Insert user
 
     const res = await request(app)
       .post('/register')

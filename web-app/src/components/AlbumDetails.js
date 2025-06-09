@@ -158,7 +158,7 @@ export const AlbumDetails = () => {
           </p>
         </div>
 
-        <div className="ReviewSection">
+        <div className="review-section">
           <section className="rating">
             <h2>Star Rating</h2>
             <StarRating rating={rating} setRating={setRating} />

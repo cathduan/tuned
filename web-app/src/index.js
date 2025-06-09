@@ -1,3 +1,9 @@
+/** 
+ * @file Index.js
+ * @description Initializes the React root. 
+ * @authors Charlie Ney, Cathy Duan
+ * @date 6/9/25
+ */ 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';

@@ -1,12 +1,11 @@
 /**
- * @file profile.test.jsx
+ * @file Profile.test.jsx
  * @description Unit tests for the Profile component using Vitest and React Testing Library.
  * Tests rendering of profile info and album reviews fetched from API.
  * Covers behavior for both empty and non-empty review cases.
  * 
- * @authors 
- *   - Charlie Ney
- * @date 6/8/25
+ * @authors Charlie Ney
+ * @date 6/9/25
  */
 
 import '@testing-library/jest-dom/vitest';

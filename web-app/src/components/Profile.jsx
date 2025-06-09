@@ -24,10 +24,7 @@ function Profile() {
   const editButton = "/edit.png";
   const deleteButton = "/delete.png";
 
-  /**
-   * Fetch and decode token on mount to get user ID and username,
-   * then fetch all reviews and related album info.
-   */
+  // Fetch and decode token on mount to get user ID and username, then fetch all reviews and related album info.
   useEffect(() => {
     if (!token) return;
 
@@ -64,7 +61,6 @@ function Profile() {
             }
           })
         );
-
         setReviews(reviewsWithAlbumData);
       };
 
