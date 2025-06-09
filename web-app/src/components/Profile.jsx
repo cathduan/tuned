@@ -2,15 +2,13 @@ import React, { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import "./Profile.css";
-import StarRating from "./Star";
+import StarRating from "./Star.jsx";
 
 
 function Profile() {
   const [reviews, setReviews] = useState([]);
   const [username, setUsername] = useState("");
   const [selectedAlbum, setSelectedAlbum] = useState(null);
-  const [editingReview, setEditingReview] = useState(null); // For editing
-  const [editForm, setEditForm] = useState({ rating: "", notes: "", date_listened: "" });
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const editbutton = "/edit.png";
@@ -25,6 +23,7 @@ function Profile() {
       const userId = decodedToken.id;
       setUsername(decodedToken.username);
 
+      // Fetch user reviews and album info
       const fetchReviews = async () => {
         const res = await fetch(`http://localhost:3001/profiles/${userId}/reviews`);
         const data = await res.json();
@@ -61,7 +60,7 @@ function Profile() {
     }
   }, [token]);
 
-  // DELETE review
+  // Delete a review
   const handleDelete = async (reviewId) => {
     if (!window.confirm("Are you sure you want to delete this review?")) return;
     try {
@@ -78,7 +77,7 @@ function Profile() {
     }
   };
 
-  // EDIT review
+  // Navigate to album details for editing
   const handleEditClick = (review) => {
     navigate(`/album/${review.album_id}`, {
       state: {

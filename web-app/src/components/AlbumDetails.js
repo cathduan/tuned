@@ -29,20 +29,43 @@ export const AlbumDetails = () => {
   const PLACEHOLDER_IMG = "/album_notfound.png";
 
   useEffect(() => {
-    const fetchAlbum = async () => {
-      try {
-        const res = await fetch(
-          `https://musicbrainz.org/ws/2/release/${id}?inc=artist-credits+release-groups&fmt=json`
+  const fetchAlbum = async () => {
+    try {
+      // First try as release ID
+      let res = await fetch(
+        `https://musicbrainz.org/ws/2/release/${id}?inc=artist-credits+release-groups&fmt=json`
+      );
+      
+      // If 404, try as release-group ID
+      if (!res.ok) {
+        const rgRes = await fetch(
+          `https://musicbrainz.org/ws/2/release-group/${id}?inc=artists&fmt=json`
         );
-        const data = await res.json();
-        setAlbum(data);
-      } catch (err) {
-        console.error("Failed to fetch album details:", err);
+        const rgData = await rgRes.json();
+        
+        // Get first release in this group
+        const releasesRes = await fetch(
+          `https://musicbrainz.org/ws/2/release?release-group=${id}&fmt=json&limit=1`
+        );
+        const releasesData = await releasesRes.json();
+        
+        if (releasesData.releases?.length > 0) {
+          const releaseRes = await fetch(
+            `https://musicbrainz.org/ws/2/release/${releasesData.releases[0].id}?inc=artist-credits+release-groups&fmt=json`
+          );
+          setAlbum(await releaseRes.json());
+          return;
+        }
       }
-    };
+      
+      setAlbum(await res.json());
+    } catch (err) {
+      console.error("Failed to fetch album details:", err);
+    }
+  };
 
-    fetchAlbum();
-  }, [id]);
+  fetchAlbum();
+}, [id]);
 
   if (!album) return <p>Loading album info...</p>;
 

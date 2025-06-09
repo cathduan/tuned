@@ -34,6 +34,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "vitest",
+    "test2": "dotenv -e .env -- vitest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
