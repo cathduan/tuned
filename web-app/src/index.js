@@ -1,7 +1,7 @@
 /** 
  * @file Index.js
  * @description Initializes the React root. 
- * @authors Charlie Ney, Cathy Duan
+ * @authors Cathy Duan, Charlie Ney
  * @date 6/9/25
  */ 
 import React from 'react';

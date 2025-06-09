@@ -35,4 +35,5 @@ We also hoped to return to the previous search when hitting the back button on t
 7. `cd web-app`
 8. `npm start`
 
+Please refer to our development.txt and running.txt within the "docs" folder for more guidance on how to run our app. 
 

@@ -1,7 +1,7 @@
 /** 
  * @file App.js
  * @description Main application component that sets up routing and navigation using React Router.
- * @authors Charlie Ney, Cathy Duan
+ * @authors Cathy Duan, Charlie Ney
  * @date 6/9/25
  */ 
 import React, { useContext } from 'react';

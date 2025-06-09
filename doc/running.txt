@@ -1,5 +1,5 @@
-1. cd backend
-2. node server.mjs
-3. Open a second terminal
-4. cd web-app
-5. npm start
+1. In one terminal, cd into "backend": cd web-app, then cd backend
+2. Type "node server.mjs" into your terminal. This starts up the server.
+3. Open up a second terminal.
+4. cd into "web-app": cd web-app
+5. Type "npm start" into your terminal to start the frontend. 

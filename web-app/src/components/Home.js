@@ -31,7 +31,7 @@ function Home() {
     const [searchType, setSearchType] = useState("album"); // Tracks search by artist or album title
     const [results, setResults] = useState([]);
 
-    // Restores previous search state if returning from another page 
+    // Tries to restore the previous search state when returning from another page 
     useEffect(() => {
         if (location.state?.input !== undefined) setInput(location.state.input);
         if (location.state?.searchType !== undefined) setSearchType(location.state.searchType);

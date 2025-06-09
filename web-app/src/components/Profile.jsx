@@ -2,7 +2,7 @@
  * @file Profile.jsx
  * @description Profile page that displays a logged-in user's reviews and allows them to delete or edit their entries.
  * Fetches reviews from backend and album metadata from MusicBrainz API.
- * @authors Charlie Ney, Cathy Duan
+ * @authors Cathy Duan, Charlie Ney
  * @date 6/9/25
  */
 

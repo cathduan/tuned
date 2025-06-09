@@ -1,7 +1,7 @@
 /**
  * @file Star.js
  * @description Renders a 1–5 star rating component. 
- * @authors Charlie Ney, Cathy Duan
+ * @authors Cathy Duan, Charlie Ney
  * @date 6/9/25
  */
 

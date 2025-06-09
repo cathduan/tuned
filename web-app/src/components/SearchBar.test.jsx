@@ -1,8 +1,7 @@
 /**
  * @file SearchBar.test.js
  * @description Unit tests for the SearchBar component.
- * @authors 
- *   - Charlie Ney, Cathy Duan
+ * @authors Charlie Ney, Cathy Duan
  * @date 6/9/25
  */
 
