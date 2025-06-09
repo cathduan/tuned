@@ -41,9 +41,10 @@
 .tuned-title {
   font-size: 2.0rem;
   font-weight: 700;
-  color: #22223b;
-  background: none;
-  padding: 0;
+  color: #fafad6;
+  background: solid;
+  background-color: rgb(101, 135, 255);
+  padding: 5px;
   border-radius: 0;
   text-decoration: none;
   letter-spacing: 0.05em;

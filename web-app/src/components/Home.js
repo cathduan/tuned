@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import {jwtDecode} from 'jwt-decode';
 import { SearchBar } from "./SearchBar";
 import { ResultsList } from "./ResultsList";
 import { useLocation } from "react-router-dom";
+import { AuthContext } from './AuthContext';
 import "./Home.css";
 
 function Home() {
@@ -20,6 +21,7 @@ function Home() {
         }
     }
 
+    //const { isLoggedIn, username } = useContext(AuthContext);
     const [input, setInput] = useState("");
     const [searchType, setSearchType] = useState("album");
     const [results, setResults] = useState([]);
@@ -35,6 +37,7 @@ function Home() {
         {token ? (
           <div className='welcome'>
           <p>Welcome to Tuned, {username}! You are logged in!</p>
+          <p>Search for an album to rate it.</p>
           </div>
         ) : (
           <div className='welcome'>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 import StarRating from "./Star";
 
+
 function Profile() {
   const [reviews, setReviews] = useState([]);
   const [username, setUsername] = useState("");
@@ -12,7 +13,10 @@ function Profile() {
   const [editForm, setEditForm] = useState({ rating: "", notes: "", date_listened: "" });
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const editbutton = "/edit.png";
+  const deletebutton = "/delete.png";
 
+ 
   useEffect(() => {
     if (!token) return;
 
@@ -102,6 +106,15 @@ function Profile() {
         <ul className="ReviewList">
           {reviews.map((review) => (
             <li key={review.id} className="ReviewCard">
+              <div className="top-right-buttons">
+                  <button onClick={() => handleEditClick(review)}>
+                    <img src={editbutton} alt="edit" style={{ height: "1.5rem", width: "1.5rem" }} />
+                  </button>
+                  <button onClick={() => handleDelete(review.id)}>
+                    <img src={deletebutton} alt="delete" style={{ height: "1.5rem", width: "1.5rem" }} />
+                  </button>
+                </div>
+              <div>
               <img
                 src={`https://coverartarchive.org/release/${review.album_id}/front-250`}
                 onError={(e) =>
@@ -109,7 +122,6 @@ function Profile() {
                 }
                 alt="Cover Art"
               />
-              <div>
                 <p>
                   <strong>Album:</strong>{" "}
                   <button
@@ -139,19 +151,61 @@ function Profile() {
                     day: "numeric",
                   })}
                 </p>
-                <div style={{ marginTop: "0.5rem" }}>
-                  <button onClick={() => handleEditClick(review)} style={{ marginRight: "0.5rem" }}>
-                    Edit
-                  </button>
-                  <button onClick={() => handleDelete(review.id)} style={{ color: "red" }}>
-                    Delete
-                  </button>
-                </div>
               </div>
             </li>
           ))}
         </ul>
       )}
+
+      {/* Edit Modal
+      {editingReview && (
+        <div className="modal-overlay" onClick={() => setEditingReview(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <h2>Edit Review</h2>
+            <form onSubmit={handleEditSubmit}>
+              <label>
+                Rating:
+                <input
+                  type="number"
+                  name="rating"
+                  min="0"
+                  max="5"
+                  value={editForm.rating}
+                  onChange={handleEditChange}
+                  required
+                />
+              </label>
+              <label>
+                Notes:
+                <input
+                  type="text"
+                  name="notes"
+                  value={editForm.notes}
+                  onChange={handleEditChange}
+                />
+              </label>
+              <label>
+                Date Listened:
+                <input
+                  type="date"
+                  name="date_listened"
+                  value={editForm.date_listened}
+                  onChange={handleEditChange}
+                  required
+                />
+              </label>
+              <div style={{ marginTop: "1rem" }}>
+                <button type="submit" style={{ marginRight: "0.5rem" }}>
+                  Save
+                </button>
+                <button type="button" onClick={() => setEditingReview(null)}>
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )} */}
 
       {/* Album Info Modal */}
       {selectedAlbum && (

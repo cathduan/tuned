@@ -52,6 +52,30 @@
     flex-direction: column;
     gap: 4px;
   }
+
+  .ReviewCard .top-right-buttons {
+    position: relative;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 2;
+  }
+  
+  .ReviewCard .top-right-buttons button {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .ReviewCard .top-right-buttons img {
+    background: transparent !important;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
   
   .ReviewCard p {
     margin: 0;

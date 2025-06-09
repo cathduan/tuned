@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import StarRating from "./Star";
-//import placeholderImage from '../../public/album_notfound.png'; 
 import "./AlbumDetails.css";
 
 export const AlbumDetails = () => {
@@ -27,7 +26,6 @@ export const AlbumDetails = () => {
   const getCoverArtUrl = (releaseId) =>
     `https://coverartarchive.org/release/${releaseId}/front-250`;
 
-  //const PLACEHOLDER_URL = "https://via.placeholder.com/250?text=No+Art";
   const PLACEHOLDER_IMG = "/album_notfound.png";
 
   useEffect(() => {
@@ -80,6 +78,7 @@ export const AlbumDetails = () => {
       }
 
       if (!res.ok) throw new Error("Failed to save review");
+      navigate('/');
       setMessage("Review saved!");
     } catch (err) {
       console.error(err);
@@ -91,6 +90,8 @@ export const AlbumDetails = () => {
   const handleBack = () => {
     navigate("/", { state: previousSearchState });
   };
+
+  const backbutton = "/backbutton.png";
 
   return (
     <div className="AlbumDetailsCenter">
@@ -109,7 +110,11 @@ export const AlbumDetails = () => {
             cursor: "pointer",
           }}
         >
-          ← 
+          <img
+        src={backbutton}
+        alt="Back"
+        style={{ height: "2rem", width: "2rem" }}
+          />
         </button>
         <div className="AlbumDetail">
           <img
